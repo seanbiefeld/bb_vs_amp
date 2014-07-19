@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+	<head>
+
+		<!-- Basic Page Needs
+	  ================================================== -->
+		<meta charset="utf-8">
+		<title>Your Page Title Here :)</title>
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<!-- Mobile Specific Metas
+	  ================================================== -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+		<!-- CSS
+	  ================================================== -->
+		<link rel="stylesheet" href="stylesheets/style.css">
+
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<!-- Favicons
+		================================================== -->
+		<link rel="shortcut icon" href="images/favicon.ico">
+		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+	</head>
+	<body>
+	<body>
+    <div class="container">
+        <div class="sixteen columns">
+             <h1 class="remove-bottom" style="margin-top: 40px">BackBone</h1>
+
+            	<h5>Something, something, JavaScript...</h5>
+
+            <hr />
+        </div>
+        <form action="#">
+            <div class="sixteen columns">
+                	<h3>People</h3>
+                <div>
+                <table>
+					<thead>
+						<tr>
+                            <th></th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Date of Birth</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+                            <td><img src="http://robohash.org/seanbiefeld?size=42x42&set=set3"></img></td>
+							<td>Sean Biefeld</td>
+							<td>sbiefeld@gmail.com</td>
+                            <td>5/4/1984</td>
+                            <td>Edit / Delete</td>
+						</tr>
+					</tbody>
+				</table>
+                </div>
+            </div>
+            <div class="sixteen columns">
+                	<h3>Add a Person</h3>
+
+            </div>
+            <div class="five columns alpha">
+                <p>
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="Fry/Leela" />
+                    <label for="name">Avatar</label>
+                <input type="url" id="avatar" placeholder="www.avatar.com/avatar.png" />
+                    
+                    <label for="dateofbirth">Date of Birth</label>
+                    <input type="date" id="dateOfBirth" />
+                </p>
+            </div>
+            <div class="five columns">
+            <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="someone@gmail.com" />
+            	<label for="phoneType">Phone Type</label>
+                    <select id="phoneType">
+                        <option value="Mobile">Mobile</option>
+                        <option value="Home">Home</option>
+                        <option value="Work">Work</option>
+                    </select>
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" placeholder="555-555-5555" />
+                    <!-- Wrap checkbox/radio button groups in fieldsets -->
+                    <fieldset>
+                        <label for="">Gender</label>
+                        <label for="female">
+                            <input type="radio" name="gender" id="female" value="female" /> <span>Female</span>
+
+                        </label>
+                        <label for="male">
+                            <input type="radio" name="gender" id="male" value="male" /> <span>Male</span>
+
+                        </label>
+                    </fieldset>
+            </div>
+            <div class="five columns">
+                <!-- Label and textarea -->
+                <label for="bio">Bio</label>
+                <textarea id="bio" placeholder="enter some info about you"></textarea>
+                <fieldset>
+                    <!-- Give the fieldset a label -->
+                    <label for="">Hobbies</label>
+                    <!-- Wrap each checkbox in a label, then give it the input and span for the text option -->
+                    <label for="hiking">
+                        <input type="checkbox" id="hiking" value="hiking" /> <span>Hiking</span>
+
+                    </label>
+                    <label for="cooking">
+                        <input type="checkbox" id="cooking" value="cooking" /> <span>Cooking</span>
+
+                    </label>
+                    <label for="videoGames">
+                        <input type="checkbox" id="videoGames" value="videoGames" /> <span>Video Games</span>
+
+                    </label>
+                    <label for="movies">
+                        <input type="checkbox" id="movies" value="movies" /> <span>Movies</span>
+
+                    </label>
+                </fieldset>
+                
+            </div>
+            <div class="one column omega"></div>
+            <div class="sixteen columns">
+                <button type="submit">Submit Form</button>
+            </div>
+        </form>
+    </div>
+	    <script type="text/template" id="item-template">
+	    <tr>
+            <td><img src="<%= avatarUrl %>"></img></td>
+			<td><%= name %></td>
+			<td><%= email %></td>
+            <td><%= dob %></td>
+            <td>Edit / Delete</td>
+		</tr>
+	  </script>
+		<script src="libraries/todomvc-common/base.js"></script>
+		<script src="libraries/jquery/jquery.js"></script>
+		<script src="libraries/underscore/underscore.js"></script>
+		<script src="libraries/backbone/backbone.js"></script>
+		<script src="libraries/backbone.localStorage/backbone.localStorage.js"></script>
+		<script src="js/models/person.js"></script>
+		<script src="js/collections/people.js"></script>
+		<script src="js/views/add-view.js"></script>
+		<script src="js/views/edit-view.js"></script>
+		<script src="js/views/app-view.js"></script>
+		<script src="js/routers/router.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>
