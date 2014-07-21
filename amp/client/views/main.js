@@ -31,7 +31,7 @@ module.exports = View.extend({
         this.pageSwitcher = new ViewSwitcher(this.getByRole('page-container'), {
             show: function (newView, oldView) {
                 // it's inserted and rendered for me
-                document.title = _.result(newView.pageTitle) || "Todo";
+                document.title = _.result(newView.pageTitle) || "People";
                 document.scrollTop = 0;
 
                 // add a class specifying it's active
