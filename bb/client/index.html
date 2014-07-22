@@ -33,7 +33,6 @@
 
 	</head>
 	<body>
-	<body>
     <div class="container">
         <div class="sixteen columns">
              <h1 class="remove-bottom" style="margin-top: 40px">BackBone</h1>
@@ -42,32 +41,14 @@
 
             <hr />
         </div>
-        <form action="#">
-            <div class="sixteen columns">
-                	<h3>People</h3>
-                <div>
-                <table>
-					<thead>
-						<tr>
-                            <th></th>
-							<th>Name</th>
-							<th>Email</th>
-							<th>Date of Birth</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-                            <td><img src="http://robohash.org/seanbiefeld?size=42x42&set=set3"></img></td>
-							<td>Sean Biefeld</td>
-							<td>sbiefeld@gmail.com</td>
-                            <td>5/4/1984</td>
-                            <td>Edit / Delete</td>
-						</tr>
-					</tbody>
-				</table>
+        <div class="sixteen columns">
+                    <h3>People</h3>
+                <div id="page">
+                
                 </div>
             </div>
+        <form action="#">
+            
             <div class="sixteen columns">
                 	<h3>Add a Person</h3>
 
@@ -140,26 +121,210 @@
             </div>
         </form>
     </div>
-	    <script type="text/template" id="item-template">
-	    <tr>
-            <td><img src="<%= avatarUrl %>"></img></td>
-			<td><%= name %></td>
-			<td><%= email %></td>
-            <td><%= dob %></td>
-            <td>Edit / Delete</td>
-		</tr>
-	  </script>
-		<script src="libraries/todomvc-common/base.js"></script>
 		<script src="libraries/jquery/jquery.js"></script>
 		<script src="libraries/underscore/underscore.js"></script>
 		<script src="libraries/backbone/backbone.js"></script>
-		<script src="libraries/backbone.localStorage/backbone.localStorage.js"></script>
-		<script src="js/models/person.js"></script>
-		<script src="js/collections/people.js"></script>
-		<script src="js/views/add-view.js"></script>
-		<script src="js/views/edit-view.js"></script>
-		<script src="js/views/app-view.js"></script>
-		<script src="js/routers/router.js"></script>
-		<script src="js/app.js"></script>
+        <script type="text/template" id="people-list-template">
+            <a href="#/people_new" class="btn btn-primary">New</a>
+            <hr />
+            <table>
+              <thead>
+                <tr>
+                  <th>avatar</th>
+                  <th>name</th>
+                  <th>email</th>
+                  <th>dateOfBirth</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              <% _.each(data, function(item) { %>
+                <tr>
+                  <td><img src="<%= item.get('avatar') %>" /></td> 
+                  <td><%= item.get('name') %></td> 
+                  <td><%= item.get('email') %></td>
+                  <td><%= item.get('dateOfBirth') %></td>
+                  <td><a class="btn" href="#/people_edit/<%= item.id %>">Edit</a></td>
+                </tr>
+              <% }); %>
+              </tbody>
+            </table>
+        </script> 
+
+        <script type="text/template" id="people-edit-template">
+          <form class="people-edit-form">
+            <legend><%= data ? 'Edit' : 'New' %></legend>
+              
+              <label>name</label>
+                <input name="name" type="text" value="<%= data ? data.get('name') : '' %>"> 
+              <label>email</label>
+                <input name="email" type="text" value="<%= data ? data.get('email') : '' %>"> 
+              <label>avatar</label>
+                <input name="avatar" type="text" value="<%= data ? data.get('avatar') : '' %>"> 
+              <label>dateOfBirth</label>
+                <input name="dateOfBirth" type="text" value="<%= data ? data.get('dateOfBirth') : '' %>"> 
+              <label>preferredPhoneType</label>
+                <input name="preferredPhoneType" type="text" value="<%= data ? data.get('preferredPhoneType') : '' %>"> 
+              <label>phoneNumber</label>
+                <input name="phoneNumber" type="text" value="<%= data ? data.get('phoneNumber') : '' %>"> 
+              <label>gender</label>
+                <input name="gender" type="text" value="<%= data ? data.get('gender') : '' %>"> 
+              <label>bio</label>
+                <input name="bio" type="text" value="<%= data ? data.get('bio') : '' %>"> 
+              <label>hobbies</label>
+                <input name="hobbies" type="text" value="<%= data ? data.get('hobbies') : '' %>"> 
+              
+            <hr />
+            <input type="submit" class="btn" value="<%= data ? 'Update' : 'Create' %>" />
+            <% if (data) { %>
+              <input type="hidden" name="id" value="<%= data.id %>" />
+              <input type="button" class="btn btn-danger delete" value="Delete" /> 
+            <% }; %>
+            <input type="button" class="btn cancel" value="Back" />
+          </form>
+        </script>
+
+            
+
+        <script>
+
+        /* Define where your api entry point is. The following uses yourdomain.com/api/ */
+        $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
+          options.url = 'api' + options.url;
+        });
+
+        /* jQuery plugin to turn form into JSON 
+           http://stackoverflow.com/questions/1184624/convert-form-data-to-js-object-with-jquery */
+        $.fn.serializeObject = function() {
+          var o = {};
+          var a = this.serializeArray();
+          $.each(a, function() {
+              if (o[this.name] !== undefined) {
+                  if (!o[this.name].push) {
+                      o[this.name] = [o[this.name]];
+                  }
+                  o[this.name].push(this.value || '');
+              } else {
+                  o[this.name] = this.value || '';
+              }
+          });
+          return o;
+        };
+                    
+
+        /* Collection */
+        var People = Backbone.Collection.extend({
+            url : "/people"
+        });
+            
+        /* Model */
+        var Person = Backbone.Model.extend({
+            defaults : {
+                id : 0,
+                name : "",
+                email : "",
+                avatar : "",
+                dateOfBirth : {
+
+                },
+                preferredPhoneType : "",
+                phoneNumber : "",
+                gender : "",
+                bio : "",
+                hobbies : [
+
+                    ]
+            },
+            urlRoot : "/people"
+        });
+            
+        /* View */
+        var PeopleListView = Backbone.View.extend({
+            el: '#page',
+            render: function () { 
+                var people = new People();
+                var that = this;
+                people.fetch({
+                    success: function (data) {
+                        var template = _.template($('#people-list-template').html(), {data : data.models});
+                        that.$el.html(template);
+                    }
+                });
+            }
+        });
+
+        var peopleListView = new PeopleListView();
+
+        var PeopleEditView = Backbone.View.extend({
+            el: '#page',
+            events: {
+                'submit .people-edit-form': 'saveItem',
+                'click .delete': 'deleteItem',
+                'click .cancel': 'cancelItem'
+            },
+            item : null,
+            cancelItem : function (e) {
+                router.navigate('', {trigger:true});
+            },
+            deleteItem: function (e) {
+                this.item.destroy({
+                    success: function () { 
+                        router.navigate('', {trigger:true});
+                    }
+                })
+            },
+            render: function (options) { 
+                var that = this;
+                if(options.id) {
+                    this.item = new Person({id: options.id});
+                    this.item.fetch({
+                        success: function (data) {    
+                            var template = _.template($('#people-edit-template').html(), {data : data});
+                            that.$el.html(template);
+                        }
+                    });
+                } else {
+                    var template = _.template($('#people-edit-template').html(), {data : null});
+                    this.$el.html(template);
+                }
+            },
+            saveItem: function (e) {    
+                var details = $(e.currentTarget).serializeObject(); 
+                var person = new Person();
+                details.id = parseInt(details.id)
+                person.save(details, {
+                    success: function (data) {
+                        router.navigate('', {trigger:true});
+                    }
+                });
+                return false;
+            }
+        });
+         
+        var peopleEditView = new PeopleEditView();
+
+
+            
+        /* Router */
+        var Router = Backbone.Router.extend({
+            routes: {
+              "": "home", 
+              "people_edit/:id": "edit",
+              "people_new": "edit",
+            }
+        });
+
+        var router = new Router;
+        router.on('route:home', function() { 
+          peopleListView.render();
+        })
+        router.on('route:edit', function(id) {
+          peopleEditView.render({id: id});
+        })
+        Backbone.history.start();
+
+            
+        </script>
+
 	</body>
 </html>
