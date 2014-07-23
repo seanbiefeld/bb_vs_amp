@@ -8,7 +8,7 @@
 		<!-- Basic Page Needs
 	  ================================================== -->
 		<meta charset="utf-8">
-		<title>Your Page Title Here :)</title>
+		<title> ( ಠ_ಠ ) </title>
 		<meta name="description" content="">
 		<meta name="author" content="">
 
@@ -35,105 +35,32 @@
 	<body>
     <div class="container">
         <div class="sixteen columns">
-             <h1 class="remove-bottom" style="margin-top: 40px">BackBone</h1>
+             <h1 class="remove-bottom" style="margin-top: 40px">Backbone.js</h1>
 
-            	<h5>Something, something, JavaScript...</h5>
+            	<h5>=>=>=>=>=>=>=>=>=>=>=></h5>
 
             <hr />
         </div>
-        <div class="sixteen columns">
-                    <h3>People</h3>
+        <div class="sixteen columns">                   
                 <div id="page">
                 
                 </div>
             </div>
-        <form action="#">
-            
-            <div class="sixteen columns">
-                	<h3>Add a Person</h3>
-
-            </div>
-            <div class="five columns alpha">
-                <p>
-                    <label for="name">Name</label>
-                    <input type="text" id="name" placeholder="Fry/Leela" />
-                    <label for="name">Avatar</label>
-                <input type="url" id="avatar" placeholder="www.avatar.com/avatar.png" />
-                    
-                    <label for="dateofbirth">Date of Birth</label>
-                    <input type="date" id="dateOfBirth" />
-                </p>
-            </div>
-            <div class="five columns">
-            <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="someone@gmail.com" />
-            	<label for="phoneType">Phone Type</label>
-                    <select id="phoneType">
-                        <option value="Mobile">Mobile</option>
-                        <option value="Home">Home</option>
-                        <option value="Work">Work</option>
-                    </select>
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" placeholder="555-555-5555" />
-                    <!-- Wrap checkbox/radio button groups in fieldsets -->
-                    <fieldset>
-                        <label for="">Gender</label>
-                        <label for="female">
-                            <input type="radio" name="gender" id="female" value="female" /> <span>Female</span>
-
-                        </label>
-                        <label for="male">
-                            <input type="radio" name="gender" id="male" value="male" /> <span>Male</span>
-
-                        </label>
-                    </fieldset>
-            </div>
-            <div class="five columns">
-                <!-- Label and textarea -->
-                <label for="bio">Bio</label>
-                <textarea id="bio" placeholder="enter some info about you"></textarea>
-                <fieldset>
-                    <!-- Give the fieldset a label -->
-                    <label for="">Hobbies</label>
-                    <!-- Wrap each checkbox in a label, then give it the input and span for the text option -->
-                    <label for="hiking">
-                        <input type="checkbox" id="hiking" value="hiking" /> <span>Hiking</span>
-
-                    </label>
-                    <label for="cooking">
-                        <input type="checkbox" id="cooking" value="cooking" /> <span>Cooking</span>
-
-                    </label>
-                    <label for="videoGames">
-                        <input type="checkbox" id="videoGames" value="videoGames" /> <span>Video Games</span>
-
-                    </label>
-                    <label for="movies">
-                        <input type="checkbox" id="movies" value="movies" /> <span>Movies</span>
-
-                    </label>
-                </fieldset>
-                
-            </div>
-            <div class="one column omega"></div>
-            <div class="sixteen columns">
-                <button type="submit">Submit Form</button>
-            </div>
-        </form>
     </div>
 		<script src="libraries/jquery/jquery.js"></script>
 		<script src="libraries/underscore/underscore.js"></script>
 		<script src="libraries/backbone/backbone.js"></script>
+        <script src="libraries/moment/moment.min.js"></script>
         <script type="text/template" id="people-list-template">
-            <a href="#/people_new" class="btn btn-primary">New</a>
-            <hr />
+            <div class="two columns alpha"><h3>People</h3></div>
+            <div class="fourteen columns omega"><a href="#/people_new" class="btn btn-primary">New</a></div>
             <table>
               <thead>
                 <tr>
-                  <th>avatar</th>
-                  <th>name</th>
-                  <th>email</th>
-                  <th>dateOfBirth</th>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>D.O.B.</th>
                   <th></th>
                 </tr>
               </thead>
@@ -143,7 +70,7 @@
                   <td><img src="<%= item.get('avatar') %>" /></td> 
                   <td><%= item.get('name') %></td> 
                   <td><%= item.get('email') %></td>
-                  <td><%= item.get('dateOfBirth') %></td>
+                  <td><%= new Date(item.get('dateOfBirth')).toLocaleDateString() %></td>
                   <td><a class="btn" href="#/people_edit/<%= item.id %>">Edit</a></td>
                 </tr>
               <% }); %>
@@ -153,27 +80,67 @@
 
         <script type="text/template" id="people-edit-template">
           <form class="people-edit-form">
-            <legend><%= data ? 'Edit' : 'New' %></legend>
-              
-              <label>name</label>
-                <input name="name" type="text" value="<%= data ? data.get('name') : '' %>"> 
-              <label>email</label>
-                <input name="email" type="text" value="<%= data ? data.get('email') : '' %>"> 
-              <label>avatar</label>
-                <input name="avatar" type="text" value="<%= data ? data.get('avatar') : '' %>"> 
-              <label>dateOfBirth</label>
-                <input name="dateOfBirth" type="text" value="<%= data ? data.get('dateOfBirth') : '' %>"> 
-              <label>preferredPhoneType</label>
-                <input name="preferredPhoneType" type="text" value="<%= data ? data.get('preferredPhoneType') : '' %>"> 
-              <label>phoneNumber</label>
-                <input name="phoneNumber" type="text" value="<%= data ? data.get('phoneNumber') : '' %>"> 
-              <label>gender</label>
-                <input name="gender" type="text" value="<%= data ? data.get('gender') : '' %>"> 
-              <label>bio</label>
-                <input name="bio" type="text" value="<%= data ? data.get('bio') : '' %>"> 
-              <label>hobbies</label>
-                <input name="hobbies" type="text" value="<%= data ? data.get('hobbies') : '' %>"> 
-              
+            <legend class="sixteen columns"><h3><%= data ? 'Update This Person' : 'Add a New Person' %></h3></legend>
+              <div class="five columns alpha">
+                <p>
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Fry/Leela" value="<%= data ? data.get('name') : '' %>" />
+                    <label for="name">Avatar</label>
+                <input type="url" id="avatar" name="avatar" placeholder="www.avatar.com/avatar.png" value="<%= data ? data.get('avatar') : '' %>" />
+                    
+                    <label for="dateofbirth">Date of Birth</label>
+                    <input type="date" id="dateOfBirth" name="dateOfBirth" value="<%= data ? moment(data.get('dateOfBirth')).format('YYYY-MM-DD') : '' %>" />
+                </p>
+            </div>
+            <div class="five columns">
+            <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="someone@gmail.com"  value="<%= data ? data.get('email') : '' %>" />
+                <label for="preferredPhoneType">Phone Type</label>
+                    <select id="preferredPhoneType" name="preferredPhoneType">
+                        <option value="Mobile">Mobile</option>
+                        <option value="Home">Home</option>
+                        <option value="Work">Work</option>
+                    </select>
+                    <label for="phone">Phone Number</label>
+                    <input id="phoneNumber" name="phoneNumber" type="tel" placeholder="555-555-5555" value="<%= data ? data.get('phoneNumber') : '' %>" />
+                    <!-- Wrap checkbox/radio button groups in fieldsets -->
+                    <fieldset>
+                        <label for="">Gender</label>
+                        <label for="female">
+                            <input type="radio" name="gender" id="female" value="female" <%= data ? (data.get('gender') === 'female' ? 'checked' : '') : ''%> /> <span>Female</span>
+
+                        </label>
+                        <label for="male">
+                            <input type="radio" name="gender" id="male" value="male" <%= data ? (data.get('gender') === 'male' ? 'checked' : '') : ''%>  /> <span>Male</span>
+
+                        </label>
+                    </fieldset>
+            </div>
+            <div class="five columns">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" placeholder="enter some info about you"><%= data ? data.get('bio') : '' %></textarea>
+                <fieldset>
+                    <label for="">Hobbies</label>
+                    <label for="hiking">
+                        <input type="checkbox" id="hobbies" name="hobbies" value="hiking" <%= data ? (_.contains(data.get('hobbies'), 'hiking') ? 'checked' : '') : ''%>  /> <span>Hiking</span>
+
+                    </label>
+                    <label for="cooking">
+                        <input type="checkbox" id="hobbies" name="hobbies" value="cooking" <%= data ? (_.contains(data.get('hobbies'), 'cooking') ? 'checked' : '') : ''%> /> <span>Cooking</span>
+
+                    </label>
+                    <label for="videoGames">
+                        <input type="checkbox" id="hobbies" name="hobbies" value="videoGames" <%= data ? (_.contains(data.get('hobbies'), 'videoGames') ? 'checked' : '') : ''%> /> <span>Video Games</span>
+
+                    </label>
+                    <label for="movies">
+                        <input type="checkbox" id="hobbies" name="hobbies" value="movies" <%= data ? (_.contains(data.get('hobbies'), 'movies') ? 'checked' : '') : ''%> /> <span>Movies</span>
+
+                    </label>
+                </fieldset>
+                
+            </div>
+            <div class="one column omega"></div>              
             <hr />
             <input type="submit" class="btn" value="<%= data ? 'Update' : 'Create' %>" />
             <% if (data) { %>
@@ -220,7 +187,6 @@
         /* Model */
         var Person = Backbone.Model.extend({
             defaults : {
-                id : 0,
                 name : "",
                 email : "",
                 avatar : "",
@@ -291,7 +257,7 @@
             saveItem: function (e) {    
                 var details = $(e.currentTarget).serializeObject(); 
                 var person = new Person();
-                details.id = parseInt(details.id)
+
                 person.save(details, {
                     success: function (data) {
                         router.navigate('', {trigger:true});
