@@ -29,12 +29,10 @@ var app = app || {};
     	if(app.currentListView)	
     		app.currentListView.hide();
 
-    	var person = app.people.get(id);
-
     	if(!app.currentEditView)
     		app.currentEditView = new app.PeopleEditView();
 
-    	app.currentEditView.render(person);
+    	app.currentEditView.render(id);
     })
     Backbone.history.start();
 

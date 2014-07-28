@@ -36,11 +36,16 @@ var app = app || {};
         updateAvatarImage: function(e){
             $('#avatarPreview').attr('src', $('#avatar').val());
         },
-        render: function (person) { 
+        render: function (id) { 
             var that = this;
-            this.model = person;
+
+            this.model = new app.Person();
+
             this.$el.show();
-            if(this.model) {
+            
+            if(id) {
+                this.model.set("id", id);
+
                 this.model.fetch({
                     success: function (data) {    
                         var template = _.template($('#people-edit-template').html(), {data : data});
