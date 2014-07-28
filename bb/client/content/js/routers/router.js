@@ -17,7 +17,7 @@ var app = app || {};
     app.router.on('route:home', function() { 
 
     	if(app.currentEditView)
-    		app.currentEditView.remove();
+    		app.currentEditView.hide();
 
     	if(!app.currentListView)
     		app.currentListView = new app.PeopleListView();
@@ -27,7 +27,7 @@ var app = app || {};
     app.router.on('route:edit', function(id) {
 
     	if(app.currentListView)	
-    		app.currentListView.remove();
+    		app.currentListView.hide();
 
     	var person = app.people.get(id);
 

@@ -1,7 +1,7 @@
 /*global Backbone */
 var app = app || {};
 
-(function ($) {
+(function () {
     'use strict';
 
 
@@ -16,13 +16,17 @@ var app = app || {};
         },
         render: function () { 
             var that = this;
+            this.$el.show();
             app.people.fetch({
                 success: function (data) {
                     var template = _.template($('#people-list-template').html(), {data : data.models});
-                    that.$el.empty().html(template);
+                    that.$el.html(template);
                 }
             });
+        },
+        hide: function(){
+            this.$el.hide();
         }
     });
 
-})(jQuery);
+})();

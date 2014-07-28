@@ -43,4 +43,4 @@ app.post('/api/people', api.add);
 
 // listen for incoming http requests on the port as specified in our config
 app.listen(config.http.port);
-console.log("Todo is running at: http://localhost:" + config.http.port + " Yep. That\'s pretty awesome.");
+console.log("People book is running at: http://localhost:" + config.http.port + " Yep. That\'s pretty awesome.");

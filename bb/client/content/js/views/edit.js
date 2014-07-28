@@ -39,16 +39,17 @@ var app = app || {};
         render: function (person) { 
             var that = this;
             this.model = person;
+            this.$el.show();
             if(this.model) {
                 this.model.fetch({
                     success: function (data) {    
                         var template = _.template($('#people-edit-template').html(), {data : data});
-                        that.$el.empty().html(template);
+                        that.$el.html(template);
                     }
                 });
             } else {
                 var template = _.template($('#people-edit-template').html(), {data : null});
-                this.$el.empty().html(template);
+                this.$el.html(template);
             }
         },
         saveItem: function (e) {    
@@ -74,6 +75,9 @@ var app = app || {};
                 }
             });
             return false;
+        },
+        hide: function(){
+            this.$el.hide();
         }
     });
 
