@@ -42,9 +42,9 @@
             <hr />
         </div>
         <div class="sixteen columns">                   
-                <div id="page">
-                
+                <div id="list">                
                 </div>
+                <div id="add-edit"></div>
             </div>
     </div>
 		<script src="libraries/jquery/jquery.js"></script>
@@ -148,165 +148,43 @@
           </form>
         </script>
 
-            
-
         <script>
 
-        /* Define where your api entry point is. The following uses yourdomain.com/api/ */
-        $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
-          options.url = 'api' + options.url;
-        });
-
-        /* jQuery plugin to turn form into JSON 
-           http://stackoverflow.com/questions/1184624/convert-form-data-to-js-object-with-jquery */
-        $.fn.serializeObject = function() {
-          var o = {};
-          var a = this.serializeArray();
-          $.each(a, function() {
-              if (o[this.name] !== undefined) {
-                  if (!o[this.name].push) {
-                      o[this.name] = [o[this.name]];
-                  }
-                  o[this.name].push(this.value || '');
-              } else {
-                  o[this.name] = this.value || '';
-              }
-          });
-          return o;
-        };
-                    
-
-        /* Collection */
-        var People = Backbone.Collection.extend({
-            url : "/people"
-        });
-            
-        /* Model */
-        var Person = Backbone.Model.extend({
-            defaults : {
-                name : "",
-                email : "",
-                avatar : "",
-                dateOfBirth : {
-
-                },
-                preferredPhoneType : "",
-                phoneNumber : "",
-                gender : "",
-                bio : "",
-                hobbies : [
-
-                    ]
-            },
-            urlRoot : "/people"
-        });
-            
-        /* View */
-        var PeopleListView = Backbone.View.extend({
-            el: '#page',
-            events: {
-                'click #addNewPerson': 'addNewPerson'
-            },
-            addNewPerson: function() {
-                window.location = '#/people_new';
-            },
-            render: function () { 
-                var people = new People();
-                var that = this;
-                people.fetch({
-                    success: function (data) {
-                        var template = _.template($('#people-list-template').html(), {data : data.models});
-                        that.$el.html(template);
-                    }
+            (function ($) {
+                'use strict';
+                /* Define where your api entry point is. The following uses yourdomain.com/api/ */
+                $.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
+                  options.url = 'api' + options.url;
                 });
-            }
-        });
 
-        var peopleListView = new PeopleListView();
+                /* jQuery plugin to turn form into JSON 
+                   http://stackoverflow.com/questions/1184624/convert-form-data-to-js-object-with-jquery */
+                $.fn.serializeObject = function() {
+                  var o = {};
+                  var a = this.serializeArray();
+                  $.each(a, function() {
+                      if (o[this.name] !== undefined) {
+                          if (!o[this.name].push) {
+                              o[this.name] = [o[this.name]];
+                          }
+                          o[this.name].push(this.value || '');
+                      } else {
+                          o[this.name] = this.value || '';
+                      }
+                  });
+                  return o;
+                };
 
-        var PeopleEditView = Backbone.View.extend({
-            el: '#page',
-            events: {
-                'submit .people-edit-form': 'saveItem',
-                'click .delete': 'deleteItem',
-                'click .cancel': 'cancelItem',
-                'blur #email': 'autoGenerateAvatar',
-                'change #avatar': 'updateAvatarImage'
-            },
-            item : null,
-            cancelItem : function (e) {
-                router.navigate('', {trigger:true});
-            },
-            deleteItem: function (e) {
-                this.item.destroy({
-                    success: function () { 
-                        router.navigate('', {trigger:true});
-                    }
-                })
-            },
-            autoGenerateAvatar: function(e){
-                var avatar = $('#avatar');
+            })(jQuery);
 
-                if(!avatar.val()){
-                    avatar.val('http://robohash.org/'+$('#email').val()+'?set=set3&size=42x42');
-                    this.updateAvatarImage(e);
-                }
-            },
-            updateAvatarImage: function(e){
-                $('#avatarPreview').attr('src', $('#avatar').val());
-            },
-            render: function (options) { 
-                var that = this;
-                if(options.id) {
-                    this.item = new Person({id: options.id});
-                    this.item.fetch({
-                        success: function (data) {    
-                            var template = _.template($('#people-edit-template').html(), {data : data});
-                            that.$el.html(template);
-                        }
-                    });
-                } else {
-                    var template = _.template($('#people-edit-template').html(), {data : null});
-                    this.$el.html(template);
-                }
-            },
-            saveItem: function (e) {    
-                var details = $(e.currentTarget).serializeObject(); 
-                var person = new Person();
-
-                person.save(details, {
-                    success: function (data) {
-                        router.navigate('', {trigger:true});
-                    }
-                });
-                return false;
-            }
-        });
-         
-        var peopleEditView = new PeopleEditView();
-
-
-            
-        /* Router */
-        var Router = Backbone.Router.extend({
-            routes: {
-              "": "home", 
-              "people_edit/:id": "edit",
-              "people_new": "edit",
-            }
-        });
-
-        var router = new Router;
-        router.on('route:home', function() { 
-          peopleListView.render();
-        })
-        router.on('route:edit', function(id) {
-          peopleEditView.render({id: id});
-        })
-        Backbone.history.start();
-
-            
         </script>
+            
+        <script src="js/models/person.js"></script>
+        <script src="js/collections/people.js"></script>
+        <script src="js/views/edit.js"></script>
+        <script src="js/views/list.js"></script>
+        <script src="js/routers/router.js"></script>
+        <script src="js/app.js"></script>
 
 	</body>
 </html>
