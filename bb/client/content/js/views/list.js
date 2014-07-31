@@ -12,7 +12,7 @@ var app = app || {};
             'click #addNewPerson': 'addNewPerson'
         },
         addNewPerson: function() {
-            window.location = '#/people_new';
+            window.location = '#/people/new';
         },
         render: function () { 
             var that = this;

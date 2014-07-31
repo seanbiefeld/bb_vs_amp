@@ -71,7 +71,7 @@
                   <td><%= item.get('name') %></td> 
                   <td><%= item.get('email') %></td>
                   <td><%= new Date(item.get('dateOfBirth')).toLocaleDateString() %></td>
-                  <td><a class="btn" href="#/people_edit/<%= item.id %>">Edit</a></td>
+                  <td><a class="btn" href="#/people/edit/<%= item.id %>">Edit</a></td>
                 </tr>
               <% }); %>
               </tbody>

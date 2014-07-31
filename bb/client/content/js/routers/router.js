@@ -8,8 +8,8 @@ var app = app || {};
 	var Router = Backbone.Router.extend({
 	    routes: {
 	      "": "home", 
-	      "people_edit/:id": "edit",
-	      "people_new": "edit",
+	      "people/edit/:id": "edit",
+	      "people/new": "edit",
 	    }
 	});
 

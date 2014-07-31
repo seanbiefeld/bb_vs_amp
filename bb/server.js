@@ -1,7 +1,6 @@
 /*global console*/
 var path = require('path'),
     express = require('express'),
-    helmet = require('helmet'),
     config = require('getconfig'),
     semiStatic = require('semi-static'),
     app = express(),
@@ -21,13 +20,6 @@ app.use(express.compress());
 app.use(express.bodyParser());
 app.use(express.cookieParser());
 app.use(express.static(path.join(__dirname, 'client/content')));
-// in order to test this with spacemonkey we need frames
-if (!config.isDev) {
-    app.use(helmet.xframe());
-}
-app.use(helmet.iexss());
-app.use(helmet.contentTypeOptions());
-//app.set('view engine', 'jade');
 
 // routes to serve the static HTML files
 app.get('/', function(req, res) {
