@@ -33,23 +33,24 @@ if (!config.isDev) {
 }
 app.use(helmet.iexss());
 app.use(helmet.contentTypeOptions());
-app.set('view engine', 'jade');
+//app.set('view engine', 'jade');
 
 
 // ---------------------------------------------------
 // Configure Moonboots to serve our client application
 // ---------------------------------------------------
 var clientApp = new Moonboots({
-    jsFileName: 'todo',
-    cssFileName: 'todo',
+    jsFileName: 'sample',
+    cssFileName: 'sample',
     main: fixPath('client/app.js'),
     developmentMode: config.isDev,
     libraries: [
-        fixPath('client/libraries/zepto.js')
+        fixPath('client/libraries/zepto.js'),
+        //fixPath('client/libraries/jquery.js')
     ],
     stylesheets: [
         fixPath('public/css/bootstrap.css'),
-        fixPath('public/css/app.css')
+        fixPath('public/css/app.css'),
     ],
     browserify: {
         debug: false
@@ -77,14 +78,34 @@ var clientApp = new Moonboots({
     }
 });
 
+var demoApp = new Moonboots({
+    jsFileName: 'demo',
+    cssFileName: 'demo',
+    main: fixPath('demo/app.js'),
+    developmentMode: config.isDev,
+    libraries: [
+        fixPath('demo/libraries/jquery.js')
+    ],
+    stylesheets: [
+        fixPath('public/css/demo.css')
+    ],
+    browserify: {
+        debug: false
+    },
+    server: app
+});
 
 // Set up our little demo API
-var api = require('./fakeApi');
+var api = require('./demoApi');//require('./fakeApi');
 app.get('/api/people', api.list);
 app.get('/api/people/:id', api.get);
 app.delete('/api/people/:id', api.delete);
 app.put('/api/people/:id', api.update);
 app.post('/api/people', api.add);
+
+//app.get('/demo', function(req, res) {
+//    res.sendfile('./client/demo.html');
+//});
 
 // Enable the functional test site in development
 if (config.isDev) {
@@ -101,8 +122,9 @@ var clientSettingsMiddleware = function (req, res, next) {
 };
 
 // configure our main route that will serve our moonboots app
-app.get('*', clientSettingsMiddleware, clientApp.html());
+//app.get('*', clientSettingsMiddleware, clientApp.html());
+app.get('/demo', clientSettingsMiddleware, demoApp.html());
 
 // listen for incoming http requests on the port as specified in our config
 app.listen(config.http.port);
-console.log("Todo is running at: http://localhost:" + config.http.port + " Yep. That\'s pretty awesome.");
+console.log("demo is running at: http://localhost:" + config.http.port + " Yep. That\'s pretty awesome.");

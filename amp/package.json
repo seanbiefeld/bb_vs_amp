@@ -1,6 +1,6 @@
 {
-  "name": "todo",
-  "author": "Sean Biefeld",
+  "name": "demo",
+  "author": "sean biefeld",
   "version": "0.0.0",
   "main": "server.js",
   "dependencies": {
