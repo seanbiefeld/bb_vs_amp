@@ -16,7 +16,6 @@ module.exports = View.extend({
 
         view.model.destroy({
             success: function () {
-                alert('Peron destroyed!');
                 app.peopleView.render(true);
             },
             error: function () { 

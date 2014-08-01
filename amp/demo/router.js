@@ -5,7 +5,7 @@ var PeopleView = require('./views/peopleView');
 
 module.exports = Router.extend({
     routes: {
-        'demo': 'people',
+        '': 'people',
         '(*path)': 'catchAll'
     },
 
@@ -18,6 +18,6 @@ module.exports = Router.extend({
     },
 
     catchAll: function () {
-        this.redirectTo('/demo');
+        this.redirectTo('');
     }
 });
