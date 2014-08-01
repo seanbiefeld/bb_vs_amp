@@ -1,6 +1,6 @@
-var View = require('ampersand-view');
-var PersonView = require('../views/person-list-item');
-var _ = require('underscore');
+var View = require('ampersand-view'),
+    PersonView = require('../views/person-list-item'),
+    _ = require('underscore');
 
 module.exports = View.extend({
 

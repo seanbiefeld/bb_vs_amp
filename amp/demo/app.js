@@ -1,7 +1,7 @@
-var _ = require('underscore');
-var Router = require('./router');
-var MainView = require('./views/main');
-var People = require('./models/people');
+var _ = require('underscore'),
+    Router = require('./router'),
+    MainView = require('./views/main'),
+    People = require('./models/people');
 
 
 module.exports = {

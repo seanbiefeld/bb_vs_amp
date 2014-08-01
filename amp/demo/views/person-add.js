@@ -1,6 +1,6 @@
-var View = require('ampersand-view');
-var _ = require('underscore');
-var Person = require('../models/person')
+var View = require('ampersand-view'),
+    _ = require('underscore'),
+    Person = require('../models/person');
 
 module.exports = View.extend({
     initialize: function(){

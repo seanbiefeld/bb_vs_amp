@@ -1,5 +1,5 @@
-var Collection = require('ampersand-rest-collection');
-var Person = require('./person');
+var Collection = require('ampersand-rest-collection'),
+Person = require('./person');
 
 
 module.exports = Collection.extend({
