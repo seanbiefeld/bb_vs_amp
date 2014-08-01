@@ -11,6 +11,11 @@ module.exports = View.extend({
         $('#avatar').on('change', this, this.updateAvatar);
     },
     render: function(){
+
+        if(this.model){
+            this.model = new Person();
+        }
+
     	$(this.el).find('#email').val('');
         $(this.el).find('#avatar').val('');
         $(this.el).find('#avatarPreview').attr('src', '');
