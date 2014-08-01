@@ -24,6 +24,11 @@ module.exports = View.extend({
 
         var view = event.data;
 
+        if(!view.model.email){
+            alert("email required");
+            return false;
+        }
+
         app.people.create(view.model, {
             success: function () {
                 app.peopleView.render(true);
