@@ -2,7 +2,6 @@ var AmpersandModel = require('ampersand-model');
 
 
 module.exports = AmpersandModel.extend({
-    url: '/api/people',
     props: {
         id: 'any',
         email: ['string', true, ''],
@@ -16,12 +15,6 @@ module.exports = AmpersandModel.extend({
             deps: ['email'],
             fn: function () {
                 return 'http://robohash.org/' + encodeURIComponent(this.email) + '?size=42x42';
-            }
-        },
-        viewUrl: {
-            deps: ['id'],
-            fn: function () {
-                return '/person/' + this.id;
             }
         }
     }

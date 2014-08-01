@@ -12,7 +12,8 @@ module.exports = Router.extend({
     // ------- ROUTE HANDLERS ---------
     people: function () {
         this.trigger('newPage', new PeopleView({            
-            collection: app.people
+            collection: app.people,
+            el: $("#people-list")[0]
         }));
     },
 

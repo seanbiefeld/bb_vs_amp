@@ -3,6 +3,7 @@ var PersonView = require('../views/person-list-item');
 var _ = require('underscore');
 
 module.exports = View.extend({
+
     pageTitle: 'collection demo',
     template: {},//,
     events: {
@@ -11,17 +12,37 @@ module.exports = View.extend({
     initialize: function(){
 
         var view = this;
+        app.peopleView = view;
 
         if (!this.collection.length) {
             this.fetchCollection(function(){
-                view.render();
+                view.render(false);
             });
         }
         
     },
-    render: function () {
-        //this.renderWithTemplate();
-        this.renderCollection(this.collection, PersonView, $('[role="people-list"]'));
+    render: function (rehydrate) {
+
+        var view = this;
+        var renderIt =
+        function() {
+            $(view.el).html('');
+            
+            if(view.collection.length) {
+                view.renderCollection(view.collection, PersonView, $('[role="people-list"]')); 
+            } else {
+                $(view.el).html('<tr><td colspan="2"><p>No People were found</p></td></tr>')
+            }
+        }
+
+        if(rehydrate){
+            this.fetchCollection(function(){
+                renderIt();
+            });
+
+        } else {
+            renderIt();
+        }
         
     },
     fetchCollection: function (callback) {
